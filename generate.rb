@@ -24,9 +24,19 @@ usage unless ARGV.size == 2
 package = ARGV.shift
 filtername = ARGV.shift
 
+if package =~ /[A-Z]/
+  puts "Package shouldn't use uppercase letters (generally)"
+  usage
+end
+
+unless filtername =~ /\A[A-Z]/
+  puts "Class name for filter should start with an uppercase letter"
+  usage
+end
+
 puts
-puts "Package: #{package}"
-puts "Filter class: #{filtername}"
+puts "Package:       #{package}"
+puts "Filter class:  #{filtername}"
 puts
 print "OK? (y/N) "
 response = gets.chomp
@@ -41,13 +51,21 @@ import org.apache.lucene.analysis.TokenStream;
 
 import java.util.Map;
 
+/**
+ *  Unless you're doing something weird, you shouldn't have to
+ *  edit this file at all.
+ *
+ *  Add it to a solr analysis chain with something like
+ *    <filter class="#{package}.#{filtername}" echoInvalidInput="false"/>
+**/
+
 public class #{filtername}FilterFactory extends SimpleFilterFactory {
 
   public #{filtername}FilterFactory(Map<String, String> args) {
     super(args);
   }
 
-  public L#{filtername}Filter create(TokenStream input) {
+  public #{filtername}Filter create(TokenStream input) {
     return new #{filtername}Filter(input, getEchoInvalidInput());
   }
 }
@@ -61,7 +79,10 @@ package #{package};
 import com.billdueber.solr_scaffold.analysis.SimpleFilter;
 import org.apache.lucene.analysis.TokenStream;
 
-
+/**
+ *  For most cases, all you need to do is edit the `munge` method
+ *  and leave the constructor alone.
+**/
 
 public class #{filtername}Filter extends SimpleFilter {
 
@@ -71,7 +92,7 @@ public class #{filtername}Filter extends SimpleFilter {
 
   @Override
   public String munge(String str) {
-    return str.toLowerCase();
+    return str;
   }
 
 }
@@ -81,8 +102,8 @@ target_dir = (%w[src main java].concat(package.split('.'))).join("/")
 p = Pathname.new(__dir__) + target_dir
 FileUtils.mkpath(p.to_s)
 
-File.open(p + "#{filtername}Filter.class", 'w:utf-8') { |out| out.puts filter }
-File.open(p + "#{filtername}FilterFactory.class", 'w:utf-8') { |out| out.puts factory }
+File.open(p + "#{filtername}Filter.java", 'w:utf-8') { |out| out.puts filter }
+File.open(p + "#{filtername}FilterFactory.java", 'w:utf-8') { |out| out.puts factory }
 
 pom = File.open('pom.xml').read
 
