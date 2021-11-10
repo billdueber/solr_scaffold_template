@@ -93,7 +93,7 @@ public class #{filtername}Filter extends SimpleFilter {
 
   @Override
   public String munge(String str) {
-    return str; retrun str.toLowerCase();
+    return str;
   }
 
 }
