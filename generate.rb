@@ -23,6 +23,7 @@ usage unless ARGV.size == 2
 
 package = ARGV.shift
 filtername = ARGV.shift
+artifact = filtername.downcase
 
 if package =~ /[A-Z]/
   puts "Package shouldn't use uppercase letters (generally)"
@@ -92,7 +93,7 @@ public class #{filtername}Filter extends SimpleFilter {
 
   @Override
   public String munge(String str) {
-    return str;
+    return str; retrun str.toLowerCase();
   }
 
 }
@@ -108,6 +109,6 @@ File.open(p + "#{filtername}FilterFactory.java", 'w:utf-8') { |out| out.puts fac
 pom = File.open('pom.xml').read
 
 pom.gsub!('<groupId>org.example</groupId>', "<groupId>#{package}</groupId>")
-pom.gsub!('<artifactId>solr_scaffold_template</artifactId>', "<artifactId>#{filtername}</artifactId>")
+pom.gsub!('<artifactId>solr_scaffold_template</artifactId>', "<artifactId>#{artifact}</artifactId>")
 
 File.open('pom.xml', 'w:utf-8') {|out| out.puts pom}

@@ -1,5 +1,18 @@
 # solr_scaffold_template -- generate a simple solr analysis filter
 
+This is a simple generator to get a mostly-novice up-and-running with
+a custom analysis filter for their Solr project. See the base project
+[solr_scaffold](https://github.com/billdueber/solr_scaffold) for more
+information about this kind of filter, as well as how to easily subclass
+`solr.StrField` with your own analysis (optionally changing the stored
+version of the field as well).
+
+
+**Note**: The "right" way to do this is almost certainly by getting
+`solr_scaffold` into a maven repository and/or creating a maven
+archetypes, but that seems like a lot of work before we know if anyone cares.
+
+
 ## Step 1: Generate
 
 Supposed you want to make a filter to lowercase everything (ignoring
