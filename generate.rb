@@ -51,7 +51,8 @@ import com.billdueber.solr_scaffold.analysis.SimpleFilterFactory;
 import org.apache.lucene.analysis.TokenStream;
 
 import java.util.Map;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *  Unless you're doing something weird, you shouldn't have to
@@ -84,6 +85,8 @@ package #{package};
 import com.billdueber.solr_scaffold.analysis.SimpleFilter;
 import org.apache.lucene.analysis.TokenStream;
 import java.util.regex.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *  For most cases, all you need to do is edit the `munge` method
