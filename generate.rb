@@ -52,6 +52,7 @@ import org.apache.lucene.analysis.TokenStream;
 
 import java.util.Map;
 
+
 /**
  *  Unless you're doing something weird, you shouldn't have to
  *  edit this file at all.
@@ -61,6 +62,9 @@ import java.util.Map;
 **/
 
 public class #{filtername}FilterFactory extends SimpleFilterFactory {
+
+  public static Logger log = LoggerFactory
+      .getLogger(MethodHandles.lookup().lookupClass());
 
   public #{filtername}FilterFactory(Map<String, String> args) {
     super(args);
@@ -79,6 +83,7 @@ package #{package};
 
 import com.billdueber.solr_scaffold.analysis.SimpleFilter;
 import org.apache.lucene.analysis.TokenStream;
+import java.util.regex.*;
 
 /**
  *  For most cases, all you need to do is edit the `munge` method
