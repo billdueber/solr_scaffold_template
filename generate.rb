@@ -53,7 +53,8 @@ import org.apache.lucene.analysis.TokenStream;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 /**
  *  Unless you're doing something weird, you shouldn't have to
  *  edit this file at all.
@@ -87,7 +88,8 @@ import org.apache.lucene.analysis.TokenStream;
 import java.util.regex.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 /**
  *  For most cases, all you need to do is edit the `munge` method
  *  and leave the constructor alone.
