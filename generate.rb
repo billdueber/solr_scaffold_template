@@ -3,11 +3,26 @@
 require 'pathname'
 require 'fileutils'
 
-print "Package name (e.g., com.example.solr.analysis): "
-package = gets.chomp
 
-print "Filter class, capitalized (e.g., Lowercasify): "
-filtername = gets.chomp
+def usage
+  puts <<~USAGEDOC
+  USAGE 
+    ruby generate.rb com.example.mypackagename MyFiltername
+  
+  Note that the package is all lowercase, and the filter name
+  must start with an uppercase letter
+
+  Example:
+    ruby generate.rb com.billdueber.solr.analysis Lowercasify
+
+  USAGEDOC
+  exit 1
+end
+
+usage unless ARGV.size == 2
+
+package = ARGV.shift
+filtername = ARGV.shift
 
 puts
 puts "Package: #{package}"
@@ -68,3 +83,10 @@ FileUtils.mkpath(p.to_s)
 
 File.open(p + "#{filtername}Filter.class", 'w:utf-8') { |out| out.puts filter }
 File.open(p + "#{filtername}FilterFactory.class", 'w:utf-8') { |out| out.puts factory }
+
+pom = File.open('pom.xml').read
+
+pom.gsub!('<groupId>org.example</groupId>', "<groupId>#{package}</groupId>")
+pom.gsub!('<artifactId>solr_scaffold_template</artifactId>', "<artifactId>#{filtername}</artifactId>")
+
+File.open('pom.xml', 'w:utf-8') {|out| out.puts pom}
