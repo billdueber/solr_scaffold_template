@@ -97,6 +97,9 @@ import java.lang.invoke.MethodHandles;
 
 public class #{filtername}Filter extends SimpleFilter {
 
+  public static Logger log = LoggerFactory
+      .getLogger(MethodHandles.lookup().lookupClass());
+
   public #{filtername}Filter(TokenStream aStream, Boolean echoInvalidInput) {
     super(aStream, echoInvalidInput);
   }
