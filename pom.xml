@@ -15,7 +15,7 @@
 
   <repositories>
   <repository>
-    <id>repo</id>
+    <id>billdueber_github</id>
     <releases>
       <enabled>true</enabled>
       <checksumPolicy>ignore</checksumPolicy>
@@ -23,12 +23,12 @@
     <snapshots>
       <enabled>false</enabled>
     </snapshots>
-    <url>file://${project.basedir}/repo</url>
+    <url>https://github.com/billdueber/repository.git</url>
   </repository>
   </repositories>
 
   <build>
-    <finalName>${artifactId}-${project.version}</finalName>
+    <finalName>${project.artifactId}-${project.version}</finalName>
   </build>
 
   <dependencies>
